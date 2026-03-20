@@ -1,8 +1,43 @@
-import mongoose from 'mongoose';
-import { DB_NAME} from './constants.js';
-import express from 'express';
+import dotenv from 'dotenv'
+import connectDB from './db/index.js';
 
-// Approach 1: Using async/await with an IIFE (Immediately Invoked Function Expression)
+dotenv.config({
+    path: './env'
+})
+
+
+connectDB()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Approach 2: Using async/await with an IIFE (Immediately Invoked Function Expression)
 /*
 (async () => {
     try{
@@ -22,4 +57,6 @@ import express from 'express';
 }) ()
 
 */
+
+
 
