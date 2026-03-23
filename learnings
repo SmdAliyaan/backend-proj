@@ -1,0 +1,6 @@
+what is middleware : its a bridge -> is the user capable of getting the requested reposnse
+
+-> to check if the user is valid
+-> checking is middleware
+-> user logged in?
+-> is user Admin?
