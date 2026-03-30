@@ -1,5 +1,4 @@
 import { v2 as cloudinary} from 'cloudinary';
-import { log } from 'console';
 import fs from 'fs' 
 
 cloudinary.config({
@@ -18,11 +17,22 @@ const uploadOnCloudinary = async (localFilePath) => {
         })
         // file has been uploaded sucessfull
         console.log("File is uploaded on cloudinary",response.url);
-        response.url();
         return response;
     } catch (error) {
-        fs.unlinkSync(localFilePath) //remove the locally saved temp files as the upload opertion got failed
-        return null;    
+        // Help debugging: log the real Cloudinary error reason.
+        // This file path is the temp file created by multer.
+        console.error("Cloudinary upload failed:", {
+            localFilePath,
+            error: error?.message || error
+        });
+        // Remove the locally saved temp file as the upload operation got failed.
+        try {
+            if (fs.existsSync(localFilePath)) fs.unlinkSync(localFilePath);
+        } catch (unlinkErr) {
+            // Don't hide the original cloudinary error.
+            console.error("Failed to delete temp file after upload failure:", unlinkErr?.message || unlinkErr);
+        }
+        return null;
     }
 }
 
